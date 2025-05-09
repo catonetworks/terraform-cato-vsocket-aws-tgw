@@ -68,7 +68,7 @@ provider "cato" {
 module "vsocket-aws-vpc-tgw" {
   source                = "../"
   vpc_id                = null
-  internet_gateway_id      = null 
+  internet_gateway_id   = null 
   ingress_cidr_blocks   = ["0.0.0.0/0"]
   key_pair              = "test-keypair"
   vpc_network_range     = "10.1.0.0/22"
