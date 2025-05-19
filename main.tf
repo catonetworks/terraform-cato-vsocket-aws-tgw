@@ -1,6 +1,6 @@
 module "cato_deployment" {
   source               = "catonetworks/vsocket-aws-vpc/cato"
-  version              = "~>0.0.9"
+  version              = "~> 0.0.9"
   vpc_id               = var.vpc_id
   ingress_cidr_blocks  = var.ingress_cidr_blocks
   key_pair             = var.key_pair
