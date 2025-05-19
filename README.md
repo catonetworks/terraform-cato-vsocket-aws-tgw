@@ -175,5 +175,9 @@ Apache 2 Licensed. See [LICENSE](https://github.com/catonetworks/terraform-cato-
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_aws_ec2_transit_gateway_vpc_attachment_id"></a> [aws\_ec2\_transit\_gateway\_vpc\_attachment\_id](#output\_aws\_ec2\_transit\_gateway\_vpc\_attachment\_id) | ID of the Transit Gateway VPC attachment connecting the Cato VPC to the TGW |
+| <a name="output_aws_ec2_transit_gateway_vpc_attachment_tgwid"></a> [aws\_ec2\_transit\_gateway\_vpc\_attachment\_tgwid](#output\_aws\_ec2\_transit\_gateway\_vpc\_attachment\_tgwid) | Transit Gateway ID associated with the VPC attachment |
+| <a name="output_cato_module_output"></a> [cato\_module\_output](#output\_cato\_module\_output) | Complete output map from the referenced Cato deployment module |
 <!-- END_TF_DOCS -->
