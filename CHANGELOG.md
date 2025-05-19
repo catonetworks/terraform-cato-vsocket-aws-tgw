@@ -4,4 +4,4 @@
 
 ### Features
 - Initial commit with single socket instance with 3 NICs, creating full vpc
-
+- Uses Separate Subnet for TGW Endpoints

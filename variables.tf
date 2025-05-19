@@ -154,3 +154,12 @@ variable "tgw_route_table_id" {
   description = "Specify the Transit Gateway Route Table to use.  This is where the 0.0.0.0/0 route will be set."
   type        = string
 }
+
+variable "subnet_range_tgw" { 
+    type        = string
+  description = <<EOT
+    Choose a range within the VPC to use as the Transit Gateway subnet. This subnet will host the TransitGateway Endpoints.
+    The minimum subnet length to support High Availability is /28.
+    The accepted input format is Standard CIDR Notation, e.g. X.X.X.X/X
+	EOT
+}

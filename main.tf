@@ -1,6 +1,6 @@
-
 module "cato_deployment" {
   source               = "catonetworks/vsocket-aws-vpc/cato"
+  version              = "~>0.0.9"
   vpc_id               = var.vpc_id
   ingress_cidr_blocks  = var.ingress_cidr_blocks
   key_pair             = var.key_pair
@@ -21,7 +21,9 @@ module "cato_deployment" {
 resource "aws_ec2_transit_gateway_vpc_attachment" "cato_vpc" {
   vpc_id             = module.cato_deployment.vpc_id
   transit_gateway_id = var.tgw_id
-  subnet_ids         = [module.cato_deployment.lan_subnet_id]
+  subnet_ids         = [aws_subnet.transit_gateway.id]
+  tags = merge(var.tags, {
+  Name = "${var.site_name}-TGW-Attachment" })
 }
 
 resource "aws_route" "cato_private_to_tgw" {
@@ -34,4 +36,17 @@ resource "aws_ec2_transit_gateway_route" "all-zeros-cato" {
   destination_cidr_block         = "0.0.0.0/0"
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.cato_vpc.id
   transit_gateway_route_table_id = var.tgw_route_table_id
+}
+
+resource "aws_subnet" "transit_gateway" {
+  vpc_id               = var.vpc_id == null ? module.cato_deployment.vpc_id : var.vpc_id
+  cidr_block           = var.subnet_range_tgw
+  availability_zone_id = module.cato_deployment.lan_subnet_azid
+  tags = merge(var.tags, {
+  Name = "${var.site_name}-TGW-Subnet" })
+}
+
+resource "aws_route_table_association" "lan_subnet_route_table_association_primary" {
+  subnet_id      = aws_subnet.transit_gateway.id
+  route_table_id = module.cato_deployment.lan_route_table_id
 }
