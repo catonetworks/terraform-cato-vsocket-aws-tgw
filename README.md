@@ -66,11 +66,11 @@ provider "cato" {
 
 // AWS VPC and Virtual Socket Module
 module "vsocket-aws-vpc-tgw" {
-  source                = "../"
+  source                = "catonetworks/vsocket-aws-tgw/cato"
   vpc_id                = null
   internet_gateway_id   = null 
   ingress_cidr_blocks   = ["0.0.0.0/0"]
-  key_pair              = "test-keypair"
+  key_pair              = "Your-Keypair-here"
   vpc_network_range     = "10.1.0.0/22"
   native_network_range  = "10.1.0.0/16"
   subnet_range_mgmt     = "10.1.1.0/24"
