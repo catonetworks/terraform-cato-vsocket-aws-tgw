@@ -30,6 +30,7 @@ resource "aws_route" "cato_private_to_tgw" {
   route_table_id         = module.cato_deployment.lan_subnet_route_table_id
   destination_cidr_block = var.native_network_range
   transit_gateway_id     = var.tgw_id
+  depends_on             = [null_resource.tgw_stabilizer]
 }
 
 resource "aws_ec2_transit_gateway_route" "all-zeros-cato" {
@@ -39,14 +40,25 @@ resource "aws_ec2_transit_gateway_route" "all-zeros-cato" {
 }
 
 resource "aws_subnet" "transit_gateway" {
-  vpc_id               = var.vpc_id == null ? module.cato_deployment.vpc_id : var.vpc_id
-  cidr_block           = var.subnet_range_tgw
-  availability_zone_id = module.cato_deployment.lan_subnet_azid
+  vpc_id            = var.vpc_id == null ? module.cato_deployment.vpc_id : var.vpc_id
+  cidr_block        = var.subnet_range_tgw
+  availability_zone = module.cato_deployment.lan_subnet_azid
   tags = merge(var.tags, {
   Name = "${var.site_name}-TGW-Subnet" })
 }
 
 resource "aws_route_table_association" "lan_subnet_route_table_association_primary" {
   subnet_id      = aws_subnet.transit_gateway.id
-  route_table_id = module.cato_deployment.lan_route_table_id
+  route_table_id = module.cato_deployment.lan_subnet_route_table_id
+}
+
+resource "null_resource" "tgw_stabilizer" {
+  provisioner "local-exec" {
+    command = "sleep 60"
+  }
+
+  triggers = {
+    always_run = timestamp()
+  }
+  depends_on = [module.cato_deployment]
 }
