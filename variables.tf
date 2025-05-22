@@ -155,8 +155,8 @@ variable "tgw_route_table_id" {
   type        = string
 }
 
-variable "subnet_range_tgw" { 
-    type        = string
+variable "subnet_range_tgw" {
+  type        = string
   description = <<EOT
     Choose a range within the VPC to use as the Transit Gateway subnet. This subnet will host the TransitGateway Endpoints.
     The minimum subnet length to support High Availability is /28.

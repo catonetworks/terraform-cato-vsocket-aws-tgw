@@ -48,5 +48,5 @@ resource "aws_subnet" "transit_gateway" {
 
 resource "aws_route_table_association" "lan_subnet_route_table_association_primary" {
   subnet_id      = aws_subnet.transit_gateway.id
-  route_table_id = module.cato_deployment.lan_route_table_id
+  route_table_id = module.cato_deployment.lan_subnet_route_table_id
 }
