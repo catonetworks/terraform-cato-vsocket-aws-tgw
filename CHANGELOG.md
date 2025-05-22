@@ -11,3 +11,4 @@
 ### Features 
 - Changed Referenced Var route_table_id = module.cato_deployment.lan_route_table_id to route_table_id = module.cato_deployment.lan_subnet_route_table_id
 - Updated Ref from AZID to AZ
+- Added Null Resource and Depends on to get the Subnet route to the TGW to create without error
