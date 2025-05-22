@@ -41,7 +41,7 @@ resource "aws_ec2_transit_gateway_route" "all-zeros-cato" {
 resource "aws_subnet" "transit_gateway" {
   vpc_id               = var.vpc_id == null ? module.cato_deployment.vpc_id : var.vpc_id
   cidr_block           = var.subnet_range_tgw
-  availability_zone_id = module.cato_deployment.lan_subnet_azid
+  availability_zone = module.cato_deployment.lan_subnet_azid
   tags = merge(var.tags, {
   Name = "${var.site_name}-TGW-Subnet" })
 }
