@@ -163,3 +163,9 @@ variable "subnet_range_tgw" {
     The accepted input format is Standard CIDR Notation, e.g. X.X.X.X/X
 	EOT
 }
+
+variable "build_default_tgw_route_to_cato" {
+  description = "Whether or Not to Build a default route in TGW Route Table to point at cato"
+  type        = boolean
+  default     = false
+}
