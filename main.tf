@@ -34,6 +34,7 @@ resource "aws_route" "cato_private_to_tgw" {
 }
 
 resource "aws_ec2_transit_gateway_route" "all-zeros-cato" {
+  count                          = var.build_default_tgw_route_to_cato ? 1 : 0
   destination_cidr_block         = "0.0.0.0/0"
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.cato_vpc.id
   transit_gateway_route_table_id = var.tgw_route_table_id
