@@ -158,7 +158,7 @@ Apache 2 Licensed. See [LICENSE](https://github.com/catonetworks/terraform-cato-
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_build_default_tgw_route_to_cato"></a> [build\_default\_tgw\_route\_to\_cato](#input\_build\_default\_tgw\_route\_to\_cato) | Whether or Not to Build a default route in TGW Route Table to point at cato | `boolean` | `false` | no |
+| <a name="input_build_default_tgw_route_to_cato"></a> [build\_default\_tgw\_route\_to\_cato](#input\_build\_default\_tgw\_route\_to\_cato) | Whether or Not to Build a default route in TGW Route Table to point at cato | `bool` | `false` | no |
 | <a name="input_ingress_cidr_blocks"></a> [ingress\_cidr\_blocks](#input\_ingress\_cidr\_blocks) | Set CIDR to receive traffic from the specified IPv4 CIDR address ranges<br/>	For example x.x.x.x/32 to allow one specific IP address access, 0.0.0.0/0 to allow all IP addresses access, or another CIDR range<br/>    Best practice is to allow a few IPs as possible<br/>    The accepted input format is Standard CIDR Notation, e.g. X.X.X.X/X | `list(any)` | `null` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The instance type of the vSocket | `string` | `"c5.xlarge"` | no |
 | <a name="input_internet_gateway_id"></a> [internet\_gateway\_id](#input\_internet\_gateway\_id) | Specify an Internet Gateway ID to use. If not specified, a new Internet Gateway will be created. | `string` | `null` | no |
