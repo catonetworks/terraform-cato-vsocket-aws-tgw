@@ -70,7 +70,7 @@ provider "cato" {
 // AWS VPC and Virtual Socket Module
 module "vsocket-aws-vpc-tgw" {
   source                          = "catonetworks/vsocket-aws-tgw/cato"
-  version                         = "0.0.5"
+  version                         = ">= 0.0.5"
   vpc_id                          = null
   internet_gateway_id             = null 
   ingress_cidr_blocks             = ["0.0.0.0/0"]
