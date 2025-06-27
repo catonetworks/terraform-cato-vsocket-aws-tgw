@@ -9,14 +9,6 @@ variable "site_description" {
   type        = string
 }
 
-variable "native_network_range" {
-  type        = string
-  description = <<EOT
-  	Choose a unique range for your new vsocket site that does not conflict with the rest of your Wide Area Network.
-    The accepted input format is Standard CIDR Notation, e.g. X.X.X.X/X
-	EOT
-}
-
 variable "vpc_network_range" {
   type        = string
   description = <<EOT
@@ -36,12 +28,19 @@ variable "site_type" {
 }
 
 variable "site_location" {
+  description = "Site location which is used by the Cato Socket to connect to the closest Cato PoP. If not specified, the location will be derived from the Azure region dynamicaly."
   type = object({
     city         = string
     country_code = string
     state_code   = string
     timezone     = string
   })
+  default = {
+    city         = null
+    country_code = null
+    state_code   = null ## Optional - for countries with states
+    timezone     = null
+  }
 }
 
 ## VPC Module Variables
@@ -168,4 +167,23 @@ variable "build_default_tgw_route_to_cato" {
   description = "Whether or Not to Build a default route in TGW Route Table to point at cato"
   type        = bool
   default     = false
+}
+
+variable "region" {
+  description = "AWS Region"
+  type        = string
+}
+
+variable "routed_networks" {
+  description = <<EOF
+  A map of routed networks to be accessed behind the vSocket site. The key is the network name and the value is the CIDR range.
+  Example: 
+  routed_networks = {
+  "Peered-VNET-1" = "10.100.1.0/24"
+  "On-Prem-Network" = "192.168.50.0/24"
+  "Management-Subnet" = "10.100.2.0/25"
+  }
+  EOF
+  type        = map(string)
+  default     = {} # Default to an empty map instead of null.
 }
