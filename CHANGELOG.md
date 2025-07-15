@@ -22,3 +22,14 @@
 
 ## Features
 - fixed typo found in Variables.tf 
+
+## 0.0.5 (2025-06-27)
+
+### Features 
+- Added Site_Location, Site location is now derived from AWS Region 
+- Added Routed Networks - Routed Networks can now be provided and auto routed to the TGW. 
+- Updated Variables for New Features and to simplify the code 
+- Removed native_network_range, this is now derived from subnet_range_lan 
+- Updated Readme
+- Cleaned up and reorganized code 
+- Implemented Version constraints on modules and providers

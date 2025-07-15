@@ -1,21 +1,23 @@
 module "cato_deployment" {
   source               = "catonetworks/vsocket-aws-vpc/cato"
-  version              = "~> 0.0.9"
-  vpc_id               = var.vpc_id
-  ingress_cidr_blocks  = var.ingress_cidr_blocks
-  key_pair             = var.key_pair
-  subnet_range_mgmt    = var.subnet_range_mgmt
-  subnet_range_wan     = var.subnet_range_wan
-  subnet_range_lan     = var.subnet_range_lan
-  mgmt_eni_ip          = var.mgmt_eni_ip
-  wan_eni_ip           = var.wan_eni_ip
-  lan_eni_ip           = var.lan_eni_ip
-  vpc_network_range    = var.vpc_network_range
-  native_network_range = var.native_network_range
-  site_name            = var.site_name
-  site_description     = var.site_description
-  site_location        = var.site_location
-  tags                 = var.tags
+  version              = ">= 0.0.10"
+  vpc_id              = var.vpc_id
+  ingress_cidr_blocks = var.ingress_cidr_blocks
+  key_pair            = var.key_pair
+  subnet_range_mgmt   = var.subnet_range_mgmt
+  subnet_range_wan    = var.subnet_range_wan
+  subnet_range_lan    = var.subnet_range_lan
+  mgmt_eni_ip         = var.mgmt_eni_ip
+  wan_eni_ip          = var.wan_eni_ip
+  lan_eni_ip          = var.lan_eni_ip
+  vpc_network_range   = var.vpc_network_range
+  site_name           = var.site_name
+  site_description    = var.site_description
+  site_location       = var.site_location
+  tags                = var.tags
+  region              = var.region
+  routed_networks     = var.routed_networks
+
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "cato_vpc" {
@@ -27,8 +29,9 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "cato_vpc" {
 }
 
 resource "aws_route" "cato_private_to_tgw" {
+  for_each               = var.routed_networks
   route_table_id         = module.cato_deployment.lan_subnet_route_table_id
-  destination_cidr_block = var.native_network_range
+  destination_cidr_block = each.value
   transit_gateway_id     = var.tgw_id
   depends_on             = [null_resource.tgw_stabilizer]
 }
