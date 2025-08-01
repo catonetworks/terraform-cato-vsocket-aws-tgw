@@ -33,3 +33,10 @@
 - Updated Readme
 - Cleaned up and reorganized code 
 - Implemented Version constraints on modules and providers
+
+## 0.0.6 (2025-08-1)
+
+### Features
+ - Updated to use latest provider version 
+  - Adjusted routed_networks call to include interface_index 
+ - Version Lock to Provider version 0.0.38 or greater

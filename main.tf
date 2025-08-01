@@ -1,6 +1,6 @@
 module "cato_deployment" {
-  source               = "catonetworks/vsocket-aws-vpc/cato"
-  version              = ">= 0.0.10"
+  source              = "catonetworks/vsocket-aws-vpc/cato"
+  version             = ">= 0.0.12"
   vpc_id              = var.vpc_id
   ingress_cidr_blocks = var.ingress_cidr_blocks
   key_pair            = var.key_pair
@@ -31,7 +31,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "cato_vpc" {
 resource "aws_route" "cato_private_to_tgw" {
   for_each               = var.routed_networks
   route_table_id         = module.cato_deployment.lan_subnet_route_table_id
-  destination_cidr_block = each.value
+  destination_cidr_block = each.value.subnet
   transit_gateway_id     = var.tgw_id
   depends_on             = [null_resource.tgw_stabilizer]
 }
