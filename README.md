@@ -114,8 +114,8 @@ For more information on site_location syntax, use the [Cato CLI](https://github.
 
 ```bash
 $ pip3 install catocli
-$ export CATO_TOKEN="your-api-token-here"
-$ export CATO_ACCOUNT_ID="your-account-id"
+$ export TF_VAR_CATO_TOKEN="your-api-token-here"
+$ export TF_VAR_CATO_ACCOUNT_ID="your-account-id"
 $ catocli query siteLocation -h
 $ catocli query siteLocation '{"filters":[{"search": "San Diego","field":"city","operation":"exact"}]}' -p
 ```
@@ -133,28 +133,28 @@ Apache 2 Licensed. See [LICENSE](https://github.com/catonetworks/terraform-cato-
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.98.0 |
-| <a name="requirement_cato"></a> [cato](#requirement\_cato) | >= 0.0.38 |
+| <a name="requirement_cato"></a> [cato](#requirement\_cato) | >= 0.0.70 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.98.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_cato_deployment"></a> [cato\_deployment](#module\_cato\_deployment) | catonetworks/vsocket-aws-vpc/cato | >= 0.0.12 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_ec2_transit_gateway_route.all-zeros-cato](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_route) | resource |
 | [aws_ec2_transit_gateway_vpc_attachment.cato_vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_vpc_attachment) | resource |
 | [aws_route.cato_private_to_tgw](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
@@ -166,7 +166,7 @@ Apache 2 Licensed. See [LICENSE](https://github.com/catonetworks/terraform-cato-
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_build_default_tgw_route_to_cato"></a> [build\_default\_tgw\_route\_to\_cato](#input\_build\_default\_tgw\_route\_to\_cato) | Whether or Not to Build a default route in TGW Route Table to point at cato | `bool` | `false` | no |
 | <a name="input_ingress_cidr_blocks"></a> [ingress\_cidr\_blocks](#input\_ingress\_cidr\_blocks) | Set CIDR to receive traffic from the specified IPv4 CIDR address ranges<br/>	For example x.x.x.x/32 to allow one specific IP address access, 0.0.0.0/0 to allow all IP addresses access, or another CIDR range<br/>    Best practice is to allow a few IPs as possible<br/>    The accepted input format is Standard CIDR Notation, e.g. X.X.X.X/X | `list(any)` | `null` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The instance type of the vSocket | `string` | `"c5.xlarge"` | no |
@@ -196,7 +196,7 @@ Apache 2 Licensed. See [LICENSE](https://github.com/catonetworks/terraform-cato-
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_aws_ec2_transit_gateway_vpc_attachment_id"></a> [aws\_ec2\_transit\_gateway\_vpc\_attachment\_id](#output\_aws\_ec2\_transit\_gateway\_vpc\_attachment\_id) | ID of the Transit Gateway VPC attachment connecting the Cato VPC to the TGW |
 | <a name="output_aws_ec2_transit_gateway_vpc_attachment_tgwid"></a> [aws\_ec2\_transit\_gateway\_vpc\_attachment\_tgwid](#output\_aws\_ec2\_transit\_gateway\_vpc\_attachment\_tgwid) | Transit Gateway ID associated with the VPC attachment |
 | <a name="output_cato_module_output"></a> [cato\_module\_output](#output\_cato\_module\_output) | Complete output map from the referenced Cato deployment module |
